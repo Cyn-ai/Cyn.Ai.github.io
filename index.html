@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cynergy API Documentation</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+  <!-- Stoplight Elements -->
+  <script src="https://unpkg.com/@stoplight/elements/web-components.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/@stoplight/elements/styles.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <style>/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #06b6d4;
+  --success: #10b981;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.logo-img {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.3s ease;
+}
+
+/* Logo theme switching */
+.logo-light { display: block; }
+.logo-dark { display: none; }
+[data-theme="dark"] .logo-light { display: none; }
+[data-theme="dark"] .logo-dark { display: block; }
+
+/* Hide Try It / Send Request button - API not publicly accessible */
+.sl-elements [data-testid="send-button"],
+.sl-elements button[type="submit"],
+.TryItPanel,
+.sl-elements .TryIt,
+.sl-elements [class*="TryIt"],
+.sl-elements form[class*="TryIt"] {
+  display: none !important;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.version {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.theme-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.theme-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-sun { display: none; }
+[data-theme="dark"] .icon-sun { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
+
+.dashboard-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+}
+
+.dashboard-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+.dashboard-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main {
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+elements-api {
+  height: 100%;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+  
+  .dashboard-btn span {
+    display: none;
+  }
+}
+
+
+/* ============================================
+   STOPLIGHT - CODE SYNTAX HIGHLIGHTING (Dark Mode Fix)
+   ============================================ */
+[data-theme="dark"] .sl-elements .token.string { color: #5eead4 !important; }
+[data-theme="dark"] .sl-elements .token.property { color: #c4b5fd !important; }
+[data-theme="dark"] .sl-elements .token.keyword { color: #f472b6 !important; }
+[data-theme="dark"] .sl-elements .token.number { color: #4ade80 !important; }
+[data-theme="dark"] .sl-elements .token.boolean { color: #fbbf24 !important; }
+[data-theme="dark"] .sl-elements .token.null { color: #f87171 !important; }
+[data-theme="dark"] .sl-elements .token.punctuation { color: #94a3b8 !important; }
+[data-theme="dark"] .sl-elements .token.operator { color: #f472b6 !important; }
+[data-theme="dark"] .sl-elements .token.function { color: #c084fc !important; }
+[data-theme="dark"] .sl-elements .token.comment { color: #64748b !important; }
+[data-theme="dark"] .sl-elements .token.class-name { color: #fbbf24 !important; }
+[data-theme="dark"] .sl-elements .token.attr-name { color: #a5b4fc !important; }
+[data-theme="dark"] .sl-elements .token.attr-value { color: #5eead4 !important; }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <!-- Light theme logo (black) -->
+      <svg class="logo-img logo-light" viewBox="0 0 908.5 910.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="lg1" x1="109.89" y1="529.65" x2="548.66" y2="241.65" gradientUnits="userSpaceOnUse">
+      <stop offset=".23" stop-color="#a672bd"/><stop offset=".4" stop-color="#85b2cc"/><stop offset=".54" stop-color="#6be8da"/><stop offset=".67" stop-color="#6be5d8"/><stop offset=".75" stop-color="#6dddd5"/><stop offset=".81" stop-color="#71cfce"/><stop offset=".87" stop-color="#75bbc5"/><stop offset=".92" stop-color="#7ca2b9"/><stop offset=".95" stop-color="#818eb0"/>
+    </linearGradient>
+    <linearGradient id="lg2" x1="246.66" y1="738.02" x2="685.43" y2="450.02" xlink:href="#lg1"/>
+    <linearGradient id="lg3" x1="543.93" y1="543.82" x2="335.56" y2="423.51" gradientTransform="translate(0 936) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".25" stop-color="#a572bc"/><stop offset=".55" stop-color="#84b2cc"/><stop offset=".77" stop-color="#6be7d9"/><stop offset=".85" stop-color="#6be4d7"/><stop offset=".89" stop-color="#6ddcd4"/><stop offset=".92" stop-color="#70cecd"/><stop offset=".96" stop-color="#75bac4"/><stop offset=".98" stop-color="#7ba1b8"/><stop offset="1" stop-color="#808daf"/>
+    </linearGradient>
+  </defs>
+  <path d="M161.28,342.67s71.55-200.75,288.46-200.75,288,200.75,288,200.75h-70.24s-71.28-132.44-217.76-134.14-212.24,134.14-212.24,134.14" fill="url(#lg1)"/>
+  <path d="M737.74,568.36s-69.08,201.57-285.99,201-290.47-201.51-290.47-201.51l73.24.19s70.93,132.63,217.4,134.71,214.6-134.57,214.6-134.57" fill="url(#lg2)"/>
+  <path d="M410.77,56.21S46.54,92.79,49.93,455.33c3.39,362.54,360.85,398.96,360.85,398.96v-68.07s-293.08-50.52-291.39-335.98c1.69-284.61,291.39-328.38,291.39-328.38V56.21Z" fill="#1e1e1e"/>
+  <path d="M206.63,433.3v45.74h87.25s22.02,129.6,155.86,130.45,156.71-130.45,156.71-130.45h244.8s-12.71,182.12-117.74,271.06c-105.04,88.94-244.8,104.19-244.8,104.19l.46-67.2s87.63-3.1,176.57-78.49c88.94-75.39,106.73-165.18,106.73-165.18l-118.59,1.69s-44.05,132.99-204.14,132.14c-160.09-.85-204.99-132.99-204.99-132.99h-90.64s-16.09-22.87-15.25-88.94c.85-66.07,13.55-91.94,13.55-91.94l93.18,1s56.75-132.68,204.14-133.53,205.83,131.29,205.83,131.29l116.05.85s-39.76-99.67-104.98-162.35c-65.22-62.68-177.94-78.52-177.94-78.52V56.21s132.14.15,249.03,114.51,113.51,262.59,113.51,262.59h-245.65s-35.58-136.38-155.86-136.38-152.47,135.21-152.47,135.21l-90.64,1.17Z" fill="#1e1e1e"/>
+  <path d="M525.23,433.1c-32.73-6.23-51.86-25.35-58.08-58.08-.21-1.1-1.16-1.9-2.28-1.9s-2.07.8-2.28,1.9c-6.23,32.73-25.35,51.86-58.08,58.08-1.1.21-1.9,1.16-1.9,2.28s.8,2.07,1.9,2.28c32.73,6.23,51.86,25.35,58.08,58.08.21,1.1,1.16,1.9,2.28,1.9s2.07-.8,2.28-1.9c6.23-32.73,25.35-51.86,58.08-58.08,1.1-.21,1.9-1.16,1.9-2.28s-.8-2.07-1.9-2.28ZM436.73,503.26c-17.31-3.29-27.43-13.41-30.72-30.72-.11-.58-.61-1.01-1.2-1.01s-1.09.42-1.2,1.01c-3.29,17.31-13.41,27.43-30.72,30.72-.58.11-1.01.61-1.01,1.2s.42,1.09,1.01,1.2c17.31,3.29,27.43,13.41,30.72,30.72.11.58.61,1.01,1.2,1.01s1.09-.42,1.2-1.01c3.29-17.31,13.41-27.43,30.72-30.72.58-.11,1.01-.61,1.01-1.2s-.42-1.09-1.01-1.2ZM523.65,396.71c-6.76-1.29-10.71-5.23-11.99-11.99-.04-.23-.24-.39-.47-.39s-.43.17-.47.39c-1.28,6.76-5.23,10.71-11.99,11.99-.23.04-.39.24-.39.47s.17.43.39.47c6.76,1.29,10.71,5.23,11.99,11.99.04.23.24.39.47.39s.43-.17.47-.39c1.29-6.76,5.23-10.71,11.99-11.99.23-.04.39-.24.39-.47s-.17-.43-.39-.47Z" fill="url(#lg3)"/>
+</svg>
+      <!-- Dark theme logo (white) -->
+      <svg class="logo-img logo-dark" viewBox="0 0 908.5 910.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="lg1d" x1="109.89" y1="529.65" x2="548.66" y2="241.65" gradientUnits="userSpaceOnUse">
+      <stop offset=".23" stop-color="#a672bd"/><stop offset=".4" stop-color="#85b2cc"/><stop offset=".54" stop-color="#6be8da"/><stop offset=".67" stop-color="#6be5d8"/><stop offset=".75" stop-color="#6dddd5"/><stop offset=".81" stop-color="#71cfce"/><stop offset=".87" stop-color="#75bbc5"/><stop offset=".92" stop-color="#7ca2b9"/><stop offset=".95" stop-color="#818eb0"/>
+    </linearGradient>
+    <linearGradient id="lg2d" x1="246.66" y1="738.02" x2="685.43" y2="450.02" xlink:href="#lg1d"/>
+    <linearGradient id="lg3d" x1="543.93" y1="543.82" x2="335.56" y2="423.51" gradientTransform="translate(0 936) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset=".25" stop-color="#a572bc"/><stop offset=".55" stop-color="#84b2cc"/><stop offset=".77" stop-color="#6be7d9"/><stop offset=".85" stop-color="#6be4d7"/><stop offset=".89" stop-color="#6ddcd4"/><stop offset=".92" stop-color="#70cecd"/><stop offset=".96" stop-color="#75bac4"/><stop offset=".98" stop-color="#7ba1b8"/><stop offset="1" stop-color="#808daf"/>
+    </linearGradient>
+  </defs>
+  <path d="M161.28,342.67s71.55-200.75,288.46-200.75,288,200.75,288,200.75h-70.24s-71.28-132.44-217.76-134.14-212.24,134.14-212.24,134.14" fill="url(#lg1d)"/>
+  <path d="M737.74,568.36s-69.08,201.57-285.99,201-290.47-201.51-290.47-201.51l73.24.19s70.93,132.63,217.4,134.71,214.6-134.57,214.6-134.57" fill="url(#lg2d)"/>
+  <path d="M410.77,56.21S46.54,92.79,49.93,455.33c3.39,362.54,360.85,398.96,360.85,398.96v-68.07s-293.08-50.52-291.39-335.98c1.69-284.61,291.39-328.38,291.39-328.38V56.21Z" fill="#ffffff"/>
+  <path d="M206.63,433.3v45.74h87.25s22.02,129.6,155.86,130.45,156.71-130.45,156.71-130.45h244.8s-12.71,182.12-117.74,271.06c-105.04,88.94-244.8,104.19-244.8,104.19l.46-67.2s87.63-3.1,176.57-78.49c88.94-75.39,106.73-165.18,106.73-165.18l-118.59,1.69s-44.05,132.99-204.14,132.14c-160.09-.85-204.99-132.99-204.99-132.99h-90.64s-16.09-22.87-15.25-88.94c.85-66.07,13.55-91.94,13.55-91.94l93.18,1s56.75-132.68,204.14-133.53,205.83,131.29,205.83,131.29l116.05.85s-39.76-99.67-104.98-162.35c-65.22-62.68-177.94-78.52-177.94-78.52V56.21s132.14.15,249.03,114.51,113.51,262.59,113.51,262.59h-245.65s-35.58-136.38-155.86-136.38-152.47,135.21-152.47,135.21l-90.64,1.17Z" fill="#ffffff"/>
+  <path d="M525.23,433.1c-32.73-6.23-51.86-25.35-58.08-58.08-.21-1.1-1.16-1.9-2.28-1.9s-2.07.8-2.28,1.9c-6.23,32.73-25.35,51.86-58.08,58.08-1.1.21-1.9,1.16-1.9,2.28s.8,2.07,1.9,2.28c32.73,6.23,51.86,25.35,58.08,58.08.21,1.1,1.16,1.9,2.28,1.9s2.07-.8,2.28-1.9c6.23-32.73,25.35-51.86,58.08-58.08,1.1-.21,1.9-1.16,1.9-2.28s-.8-2.07-1.9-2.28ZM436.73,503.26c-17.31-3.29-27.43-13.41-30.72-30.72-.11-.58-.61-1.01-1.2-1.01s-1.09.42-1.2,1.01c-3.29,17.31-13.41,27.43-30.72,30.72-.58.11-1.01.61-1.01,1.2s.42,1.09,1.01,1.2c17.31,3.29,27.43,13.41,30.72,30.72.11.58.61,1.01,1.2,1.01s1.09-.42,1.2-1.01c3.29-17.31,13.41-27.43,30.72-30.72.58-.11,1.01-.61,1.01-1.2s-.42-1.09-1.01-1.2ZM523.65,396.71c-6.76-1.29-10.71-5.23-11.99-11.99-.04-.23-.24-.39-.47-.39s-.43.17-.47.39c-1.28,6.76-5.23,10.71-11.99,11.99-.23.04-.39.24-.39.47s.17.43.39.47c6.76,1.29,10.71,5.23,11.99,11.99.04.23.24.39.47.39s.43-.17.47-.39c1.29-6.76,5.23-10.71,11.99-11.99.23-.04.39-.24.39-.47s-.17-.43-.39-.47Z" fill="url(#lg3d)"/>
+</svg>
+      <span>Cynergy API</span>
+    </div>
+    <div class="header-right">
+      <span class="version">v1.0</span>
+      <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">
+        <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+      <a href="https://my.cynergy.app" target="_blank" class="dashboard-btn">
+        <span>Dashboard</span>
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <main class="main">
+    <elements-api
+      id="docs"
+      router="hash"
+      layout="responsive"
+    />
+  </main>
+
+  <script>
+    // Embedded OpenAPI spec - no fetch needed, works with file:// protocol
+    const spec = {"openapi":"3.0.0","info":{"title":"Cynergy Public API Documentation","description":"# Cynergy Public API\n\nWelcome to the Cynergy API documentation. This API allows you to programmatically manage security scans, retrieve reports, and integrate Cynergy into your workflows.\n\n## Getting Started\n\n1. **Get your API key** from the Cynergy dashboard (Settings → API Keys)\n2. **Authenticate** using the `/V1/getAuth` endpoint to get a Bearer token\n3. **Make API calls** using the Bearer token in the Authorization header\n\n## Authentication\n\nAll endpoints (except `/V1/getAuth` and `/V1/ping`) require a Bearer token:\n\n```\nAuthorization: Bearer YOUR_TOKEN\n```\n\n## Rate Limits\n\n- 100 requests per minute per API key\n- Scan initiation: 10 concurrent scans per tenant\n\n## Support\n\nFor API support, contact support@cynergy.app\n","version":"1.0","contact":{}},"tags":[{"name":"Authentication","description":"API authentication endpoints"},{"name":"Health","description":"Health check endpoints"},{"name":"Scans","description":"Initiate, monitor, and manage security scans"},{"name":"Reports","description":"Download and access scan results"},{"name":"Configuration","description":"Manage domains and settings"},{"name":"Organizations","description":"Manage organizations"},{"name":"Insights","description":"Security insights and analytics"},{"name":"DNS Twist","description":"Typosquatting and phishing domain detection"},{"name":"Infostealers","description":"Compromised credentials detection"},{"name":"Social Profiler","description":"Social profile analysis"}],"servers":[{"url":"https://apihub.cynergy.app","description":"API Server"}],"components":{"securitySchemes":{"bearer":{"scheme":"bearer","bearerFormat":"JWT","type":"http","name":"Authorization","description":"Enter your Bearer token from /V1/getAuth endpoint (without \"Bearer \" prefix)","in":"header"}},"schemas":{"WebhookConfigDto":{"type":"object","properties":{"startWebhookUrl":{"type":"string","example":"https://your-server.com/webhooks/scan-started","description":"URL to call when scan starts. Must be HTTPS. If null or not provided, start webhook will not be triggered."},"finishWebhookUrl":{"type":"string","example":"https://your-server.com/webhooks/scan-finished","description":"URL to call when scan finishes (success or failure). Must be HTTPS. If null or not provided, finish webhook will not be triggered."},"startPayloadTemplate":{"type":"string","example":"{\"project_id\":\"${PublicProjectId}\",\"project_name\":\"${ProjectName}\",\"target\":\"${AssetName}\",\"scan_type\":\"${ScanType}\"}","description":"Payload template string for start webhook. Variables will be replaced: ${PublicProjectId}, ${ProjectName}, ${AssetName}, ${ScanType}. Can be JSON string or plain text."},"finishPayloadTemplate":{"type":"string","example":"{\"project_id\":\"${PublicProjectId}\",\"project_name\":\"${ProjectName}\",\"target\":\"${AssetName}\",\"scan_type\":\"${ScanType}\"}","description":"Payload template string for finish webhook. Variables will be replaced: ${PublicProjectId}, ${ProjectName}, ${AssetName}, ${ScanType}. Can be JSON string or plain text."}}},"InitiateScanDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"asset":{"type":"string","example":"your-asset.com","description":"Top level domain, subdomain, or IP you want to scan"},"scanType":{"type":"string","example":"discovery","description":"Scan type. Supported types: \"discovery\", \"employees\", \"vuln_infra\" (vulnerability assessment)"},"tld":{"type":"string","example":"your-domain.com","description":"Top level domain (required for vuln_infra scans). The TLD must be validated in your configuration."},"frequency":{"type":"string","example":"daily","description":"Scan repetition frequency. If omitted, scan runs once immediately. Options: daily, weekly, monthly","enum":["daily","weekly","monthly"]},"webhooks":{"description":"Webhook configuration for scan events. Configure URLs to receive HTTP POST notifications when scan starts and/or finishes.","allOf":[{"$ref":"#/components/schemas/WebhookConfigDto"}]}},"required":["userPoolId","asset","scanType"]},"ScanEntity":{"type":"object","properties":{"publicProjectId":{"type":"string","example":"111111","description":"The public project id represents created scan"}},"required":["publicProjectId"]},"StopScanDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"publicProjectId":{"type":"string","example":"[PROJECT_ID]","description":"The public project number"}},"required":["userPoolId","publicProjectId"]},"GetScanStatusDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"publicProjectId":{"type":"string","example":"[PROJECT_ID]","description":"The public project id"}},"required":["userPoolId","publicProjectId"]},"ScanStatusEntity":{"type":"object","properties":{"status":{"type":"string","example":"in-progress","description":"The status of the project"},"progress":{"type":"number","example":"83","description":"The current progress of the scan in %"}},"required":["status","progress"]},"GetScansFeedDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"domain":{"type":"string","example":"your-domain.com","description":"TLD/domain to filter (optional)"},"projectType":{"type":"string","example":"discovery","description":"Project type to filter by (optional)","enum":["discovery","employees","crawl","vuln_web","vuln_infra","deepscan","autoexploitation","passwordSpray","hijack","dataleaks","dataleaks_github","dataleaks_pastebin","sitemap","waf","cloud_discovery"]},"page":{"type":"number","example":1,"description":"Page number (optional, defaults to 1)"},"limit":{"type":"number","example":20,"description":"Page size (optional, defaults to 20)"},"refId":{"type":"string","example":"some-ref-id","description":"Reference ID for polling/progress (optional)"}},"required":["userPoolId"]},"GetRunningScansStatsDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"}},"required":["userPoolId"]},"RunningScansStatsEntity":{"type":"object","properties":{"data":{"type":"object","description":"An object where keys are organization names and values are numbers.","additionalProperties":{"type":"number"},"example":{"Demo Org 1":2,"Demo Org 2":0,"Demo Org 3":3,"Demo Org N":0}},"total":{"type":"number","example":"5","description":"The total number of running projects across tenant"}},"required":["data","total"]},"GetReportDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"publicProjectId":{"type":"string","example":"[PROJECT_ID]","description":"The public project id"},"format":{"type":"string","example":"raw","description":"The format of the report data. Supported formats: \"raw\" (default) and \"json\"."}},"required":["userPoolId","publicProjectId","format"]},"GetAuthenticationDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"apiKey":{"type":"string","example":"[YOUR_API_KEY_BASE64]","description":"The API key in base64 format"}},"required":["userPoolId","apiKey"]},"AuthenticationEntity":{"type":"object","properties":{"authorization":{"type":"string","example":"Bearer VGhlIGxvbmcgc3RyaW5nIG9mIGJhcmVlciB0b2tlbg....","description":"The bearer token you can use to authenticate your api requests"}},"required":["authorization"]},"CustomHeaderDto":{"type":"object","properties":{"name":{"type":"string","example":"X-Custom-Auth","description":"Header name (alphanumeric, hyphens, underscores allowed)"},"value":{"type":"string","example":"Bearer my-token-value","description":"Header value"}},"required":["name","value"]},"SubdomainFilterDto":{"type":"object","properties":{"pattern":{"type":"string","example":"dev.","description":"Pattern to match against subdomains"},"behavior":{"type":"string","example":"startsWith","description":"Filter behavior: startsWith, endsWith, contains, equals","enum":["startsWith","endsWith","contains","equals"]}},"required":["pattern","behavior"]},"ScanSettingsDto":{"type":"object","properties":{"customHeaders":{"example":[{"name":"X-Custom-Auth","value":"Bearer token123"}],"description":"Custom HTTP headers to include in scan requests","type":"array","items":{"$ref":"#/components/schemas/CustomHeaderDto"}},"subdomainFilters":{"example":[{"pattern":"dev.","behavior":"startsWith"}],"description":"Subdomain filters to include/exclude during scanning","type":"array","items":{"$ref":"#/components/schemas/SubdomainFilterDto"}}}},"AddDomainConfigDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"scanEmployees":{"type":"boolean","example":true,"description":"Put true if you want to initiate employee scan along with initial discovery scan. Default - false"},"organisationId":{"type":"string","example":"your-organization-uuid","description":"Optional: Organization UUID to add the domain to. If not provided, the domain will be added to your tenant's default organization"},"data":{"example":["your-domain.com","another-domain.org"],"description":"Array of top level domains you want to add","type":"array","items":{"type":"string"}},"scanSettings":{"example":{"customHeaders":[{"name":"X-Auth","value":"token123"}],"subdomainFilters":[]},"description":"Optional scan settings including custom headers and subdomain filters","allOf":[{"$ref":"#/components/schemas/ScanSettingsDto"}]}},"required":["userPoolId","scanEmployees","data"]},"AddDomainEntity":{"type":"object","properties":{"success":{"type":"boolean","example":true,"description":"Indicates if the domain addition operation was performed successfully"},"message":{"type":"string","example":"Domain(s) was added successfully","description":"Success message describing the operation result"}},"required":["success","message"]},"RemoveDomainConfigDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"domains":{"example":["your-domain.com","another-domain.org"],"description":"Array of top level domains you want to remove","type":"array","items":{"type":"string"}}},"required":["userPoolId","domains"]},"RemoveDomainEntity":{"type":"object","properties":{"success":{"type":"boolean","example":true,"description":"Indicates if the domain removal operation was performed successfully"},"message":{"type":"string","example":"Domain(s) removed successfully","description":"Success message describing the operation result"}},"required":["success","message"]},"GetInsightsDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"tlds":{"example":["your-domain.com","another-domain.com"],"description":"Array of top level domains to get insights for","type":"array","items":{"type":"string"}}},"required":["userPoolId","tlds"]},"GetDnsTwistDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"tlds":{"example":["your-domain.com","another-domain.com"],"description":"Array of top level domains to get DNS twist data for","type":"array","items":{"type":"string"}}},"required":["userPoolId","tlds"]},"InitiateDnsTwistDto":{"type":"object","properties":{"uid":{"type":"string","description":"User ID who is initiating the DNS twist scan","example":"user123"},"userPoolId":{"type":"string","description":"User pool ID for the tenant","example":"tenant_123"},"tld":{"type":"string","description":"Top level domain to scan for DNS twist","example":"your-domain.com"}},"required":["uid","userPoolId","tld"]},"GetInfostealersDto":{"type":"object","properties":{"userPoolId":{"type":"string","example":"[YOUR_USER_POOL_ID]","description":"The user pool id of your tenant"},"tlds":{"example":["your-domain.com"],"description":"List of TLDs/domains to query","type":"array","items":{"type":"string"}},"page":{"type":"number","example":1,"description":"Page number for pagination"},"limit":{"type":"number","example":20,"description":"Number of items per page"},"sort":{"type":"string","example":"type|ASC","description":"Sort order"},"search":{"type":"string","example":"","description":"Search string"},"filter":{"type":"string","example":"","description":"Filter string"},"filters":{"type":"string","example":{},"description":"Filters object as JSON string"},"toggles":{"type":"object","example":{"has360":false,"onlyValidated":false},"description":"Toggles object"},"selectAllFilters":{"type":"object","example":{"excluded":[],"selected":[],"filter":{},"isAllSelected":false,"search":"","toggles":{}},"description":"Select all filters object"},"refId":{"type":"string","example":"","description":"Reference ID for polling"},"useContainsKeywordSearch":{"type":"boolean","example":false,"description":"Flag to use contains-keyword search instead of normal pagination"},"searchKeywords":{"example":["keyword1","keyword2"],"description":"Array of keywords to search for in usernames/URLs/values (used when useContainsKeywordSearch is true)","type":"array","items":{"type":"string"}}},"required":["userPoolId","tlds"]},"SocialProfilerDetectDto":{"type":"object","properties":{"profileUrl":{"type":"string","description":"Social profile URL to check","example":"https://www.linkedin.com/in/roey-liba/"},"countryCode":{"type":"string","description":"ISO country code to scope detection","example":"US"},"userPoolId":{"type":"string","description":"Cognito UserPoolId (optional)"}},"required":["profileUrl","countryCode"]},"OrganizationEntity":{"type":"object","properties":{"id":{"type":"string","example":"dsasd445-3b60-8888-899a-3e0b7055fdaed","description":"Organization UUID"},"name":{"type":"string","example":"My Organization","description":"Name of the organization"}},"required":["id","name"]},"OrganizationListEntity":{"type":"object","properties":{"organizations":{"description":"List of organizations","type":"array","items":{"$ref":"#/components/schemas/OrganizationEntity"}}},"required":["organizations"]},"OrganizationDomainsEntity":{"type":"object","properties":{"domains":{"example":["example.com","test.com"],"description":"List of domain names in the organization","type":"array","items":{"type":"string"}}},"required":["domains"]},"CreateOrganizationDto":{"type":"object","properties":{"name":{"type":"string","example":"My Organization","description":"Name of the organization"},"amountOfEmployees":{"type":"object","example":{"amount":100},"description":"Number of employees in the organization"},"region":{"type":"object","example":{"id":1},"description":"Region of the organization"},"industry":{"type":"object","example":{"id":1},"description":"Industry of the organization"},"regulations":{"example":[],"description":"Regulations applicable to the organization","type":"array","items":{"type":"string"}},"logoURL":{"type":"string","example":"https://example.com/logo.png","description":"URL of the organization logo"}},"required":["name"]},"DeleteOrganizationEntity":{"type":"object","properties":{"success":{"type":"boolean","example":true,"description":"Indicates if the organization was deleted successfully"},"message":{"type":"string","example":"Organization deleted successfully","description":"Message describing the operation result"}},"required":["success","message"]}}},"paths":{"/V1/scan":{"post":{"operationId":"V1Controller_initiateScan","summary":"Initiate scan on given asset","description":"Start a new security scan on a target asset (domain, subdomain, or IP). Supports discovery, employees, and vuln_infra scan types. Optionally schedule recurring scans and configure webhooks for notifications.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/InitiateScanDto"}}}},"responses":{"200":{"description":"Cynergy scan initiated successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ScanEntity"}}}}},"tags":["Scans"],"security":[{"bearer":[]}]}},"/V1/stop-scan":{"post":{"operationId":"V1Controller_stopScan","summary":"Stop a running scan","description":"Stop a scan that is currently in progress. Use the publicProjectId returned when the scan was initiated. This will only stop the current running scan - scheduled future scans will continue as configured.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/StopScanDto"}}}},"responses":{"200":{"description":"Scan stopped successfully"}},"tags":["Scans"],"security":[{"bearer":[]}]}},"/V1/status":{"post":{"operationId":"V1Controller_getScanStatus","summary":"Get scan status","description":"Get the current status and progress percentage of a scan. Status values: pending, in-progress, completed, failed, stopped.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetScanStatusDto"}}}},"responses":{"200":{"description":"Scans status retrieved successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ScanStatusEntity"}}}}},"tags":["Scans"],"security":[{"bearer":[]}]}},"/V1/actions/infostealers/status":{"post":{"operationId":"V1Controller_getInfostealersStatus","summary":"Get infostealers processing status for a specific keyword","description":"Check the processing status for infostealer keyword searches. Returns progress percentage and completion status.","parameters":[],"responses":{"200":{"description":"Keyword processing status retrieved successfully"}},"tags":["Infostealers"],"security":[{"bearer":[]}]}},"/V1/scans-feed":{"post":{"operationId":"V1Controller_getScansFeed","summary":"Get all projects statuses by asset or keyword","description":"Get a paginated list of all scans with optional filtering by domain or scan type. Use this to monitor scan history across your organization.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetScansFeedDto"}}}},"responses":{"200":{"description":"Filtered projects status list"}},"tags":["Scans"],"security":[{"bearer":[]}]}},"/V1/scans-stats":{"post":{"operationId":"V1Controller_getRunningScansStats","summary":"Get running scans statistics per organization","description":"Get statistics on currently running scans grouped by organization. Useful for monitoring scan capacity and workload distribution.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetRunningScansStatsDto"}}}},"responses":{"200":{"description":"Scans statistic retrieved successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/RunningScansStatsEntity"}}}}},"tags":["Scans"],"security":[{"bearer":[]}]}},"/V1/report":{"post":{"operationId":"V1Controller_getReport","summary":"Get scan report","description":"Retrieve the results of a completed scan. Returns comprehensive scan findings including discovered assets, vulnerabilities, and recommendations. Supported formats: \"raw\" (default) and \"json\".","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetReportDto"}}}},"responses":{"200":{"description":"Scan results report"}},"tags":["Reports"],"security":[{"bearer":[]}]}},"/V1/getAuth":{"post":{"operationId":"V1Controller_getAuthentication","summary":"Convert the API key to bearer token","description":"Exchange your base64-encoded API key for a Bearer token. This token is required for all authenticated API calls and is valid for 1 hour.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetAuthenticationDto"}}}},"responses":{"200":{"description":"Bearer token retrieved successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AuthenticationEntity"}}}}},"tags":["Authentication"]}},"/V1/add-domain":{"post":{"operationId":"V1Controller_addDomainConfig","summary":"Add new domain to configuration","description":"Add one or more top-level domains to your tenant configuration. Optionally trigger an initial discovery scan and configure scan settings.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddDomainConfigDto"}}}},"responses":{"200":{"description":"Domain(s) added successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AddDomainEntity"}}}}},"tags":["Configuration"],"security":[{"bearer":[]}]}},"/V1/remove-domain":{"post":{"operationId":"V1Controller_removeDomainConfig","summary":"Remove domain from configuration","description":"Remove domains from your tenant configuration. Historical scan data for removed domains is preserved.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RemoveDomainConfigDto"}}}},"responses":{"200":{"description":"Domain(s) removed successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/RemoveDomainEntity"}}}}},"tags":["Configuration"],"security":[{"bearer":[]}]}},"/V1/scan-settings/{domain}":{"get":{"operationId":"V1Controller_getScanSettings","summary":"Get scan settings for a domain","description":"Retrieve scan settings for a specific domain, including custom HTTP headers and subdomain filters.","parameters":[{"name":"domain","required":true,"in":"path","schema":{"type":"string"}},{"name":"userpoolid","in":"header","description":"The user pool id of your tenant","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"Scan settings retrieved successfully"}},"tags":["Configuration"],"security":[{"bearer":[]}]},"put":{"operationId":"V1Controller_updateScanSettings","summary":"Update scan settings for a domain","description":"Update scan settings for a domain. Configure custom HTTP headers to include in scan requests and subdomain filters to include or exclude specific patterns.","parameters":[{"name":"domain","required":true,"in":"path","schema":{"type":"string"}},{"name":"userpoolid","in":"header","description":"The user pool id of your tenant","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"Scan settings updated successfully"}},"tags":["Configuration"],"security":[{"bearer":[]}]}},"/V1/actions/insights":{"post":{"operationId":"V1Controller_getInsights","summary":"Get insights data for domains","description":"Retrieve aggregated security insights and analytics for your domains. Includes risk scores, vulnerability trends, and actionable recommendations.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetInsightsDto"}}}},"responses":{"200":{"description":"Insights data retrieved successfully"}},"tags":["Insights"],"security":[{"bearer":[]}]}},"/V1/actions/dns-twist":{"post":{"operationId":"V1Controller_getDnsTwist","summary":"Get DNS twist data for domains","description":"Get DNS twist analysis results for your domains. Identifies potential typosquatting, homograph attacks, and phishing domains.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetDnsTwistDto"}}}},"responses":{"200":{"description":"DNS twist data retrieved successfully"}},"tags":["DNS Twist"],"security":[{"bearer":[]}]}},"/V1/actions/dns-twist/initiate":{"post":{"operationId":"V1Controller_initiateDnsTwist","summary":"Initiate DNS twist scan for a domain","description":"Start a new DNS twist scan for a domain. The scan runs asynchronously - use the status endpoint to check progress.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/InitiateDnsTwistDto"}}}},"responses":{"200":{"description":"DNS twist scan initiated successfully"}},"tags":["DNS Twist"],"security":[{"bearer":[]}]}},"/V1/actions/dns-twist/status/{taskId}":{"get":{"operationId":"V1Controller_getDnsTwistStatus","summary":"Get DNS twist scan status by task ID","description":"Check the status of a DNS twist scan by task ID. Returns progress percentage and completion status.","parameters":[{"name":"taskId","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"DNS twist scan status retrieved successfully"}},"tags":["DNS Twist"],"security":[{"bearer":[]}]}},"/V1/actions/infostealers":{"post":{"operationId":"V1Controller_getInfostealers","summary":"Get infostealers data for domains","description":"Query for credentials and sensitive data exposed through infostealer malware. Returns compromised accounts, URLs, and credential data affecting your domains.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GetInfostealersDto"}}}},"responses":{"200":{"description":"Infostealers data retrieved successfully"}},"tags":["Infostealers"],"security":[{"bearer":[]}]}},"/V1/actions/social-profiler/detect":{"post":{"operationId":"V1Controller_socialProfilerDetect","summary":"Initiate social profiler detection","description":"Initiate social profile detection for a given profile URL. Analyzes the profile and returns a task ID for tracking progress.","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SocialProfilerDetectDto"}}}},"responses":{"200":{"description":"Detection initiated"}},"tags":["Social Profiler"],"security":[{"bearer":[]}]}},"/V1/actions/social-profiler/progress":{"post":{"operationId":"V1Controller_socialProfilerProgress","summary":"Get social profiler progress by taskId","description":"Check the progress of a social profiler detection task. Returns completion percentage and current status.","parameters":[],"responses":{"200":{"description":"Progress retrieved"}},"tags":["Social Profiler"],"security":[{"bearer":[]}]}},"/V1/actions/social-profiler/results":{"post":{"operationId":"V1Controller_socialProfilerResults","summary":"Get social profiler results by taskId","description":"Retrieve the results of a completed social profiler detection. Returns detected information and analysis findings.","parameters":[],"responses":{"200":{"description":"Results retrieved"}},"tags":["Social Profiler"],"security":[{"bearer":[]}]}},"/V1/add-keyword":{"post":{"operationId":"V1Controller_addKeyword","summary":"Add a keyword to brand protection list","description":"Add a keyword to the brand protection monitoring list. Keywords are used to detect potential brand impersonation and phishing attempts.","parameters":[],"responses":{"200":{"description":"Keyword added successfully"}},"tags":["Configuration"],"security":[{"bearer":[]}]}},"/V1/remove-keyword":{"post":{"operationId":"V1Controller_removeKeyword","summary":"Remove a keyword from brand protection list","description":"Remove a keyword from the brand protection monitoring list.","parameters":[],"responses":{"200":{"description":"Keyword removed successfully"}},"tags":["Configuration"],"security":[{"bearer":[]}]}},"/V1/password-spray":{"post":{"operationId":"V1Controller_passwordSpray","summary":"Initiate password spray scan","description":"Initiate a password spray scan to test for weak or compromised credentials across discovered services.","parameters":[],"responses":{"200":{"description":"Password spray scan initiated"}},"tags":["Scans"],"security":[{"bearer":[]}]}},"/V1/ping":{"post":{"operationId":"V1Controller_ping","summary":"Health check","description":"Health check endpoint to verify API connectivity. Returns a simple response confirming the API is operational. No authentication required.","parameters":[],"responses":{"200":{"description":"API is operational"}},"tags":["Health"]}},"/V1/organizations":{"get":{"operationId":"V1Controller_getOrganizations","summary":"Get list of all organizations","description":"Get a list of all organizations in your tenant. Organizations help group domains and manage access control.","parameters":[{"name":"userpoolid","in":"header","description":"The user pool id of your tenant","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"Organizations retrieved successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationListEntity"}}}}},"tags":["Organizations"],"security":[{"bearer":[]}]},"post":{"operationId":"V1Controller_createOrganization","summary":"Create a new organization","description":"Create a new organization. Organizations allow you to logically group domains and configure organization-specific settings.","parameters":[{"name":"userpoolid","in":"header","description":"The user pool id of your tenant","required":true,"schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateOrganizationDto"}}}},"responses":{"200":{"description":"Organization created successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationEntity"}}}}},"tags":["Organizations"],"security":[{"bearer":[]}]}},"/V1/organizations/{orgId}":{"get":{"operationId":"V1Controller_getOrganizationDomains","summary":"Get list of domains inside an organization","description":"Get the list of domains belonging to a specific organization.","parameters":[{"name":"orgId","required":true,"in":"path","schema":{"type":"string"}},{"name":"userpoolid","in":"header","description":"The user pool id of your tenant","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"Organization domains retrieved successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/OrganizationDomainsEntity"}}}}},"tags":["Organizations"],"security":[{"bearer":[]}]},"delete":{"operationId":"V1Controller_deleteOrganization","summary":"Delete an empty organization","description":"Delete an organization. The organization must be empty (no domains) before it can be deleted.","parameters":[{"name":"orgId","required":true,"in":"path","schema":{"type":"string"}},{"name":"userpoolid","in":"header","description":"The user pool id of your tenant","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"Organization deleted successfully","content":{"application/json":{"schema":{"$ref":"#/components/schemas/DeleteOrganizationEntity"}}}}},"tags":["Organizations"],"security":[{"bearer":[]}]}}}};
+    
+    document.getElementById('docs').apiDescriptionDocument = JSON.stringify(spec);
+    
+    // Theme toggle
+    const getTheme = () => localStorage.getItem('cynergy-theme') || 'light';
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('cynergy-theme', theme);
+    };
+    const toggleTheme = () => setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    setTheme(getTheme());
+  </script>
+</body>
+</html>
